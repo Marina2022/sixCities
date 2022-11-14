@@ -1,4 +1,5 @@
 import {RoomType} from "../types/types";
+
 export const offers: RoomType[] = [
   {
     id: "111",
@@ -8,7 +9,13 @@ export const offers: RoomType[] = [
     type: "Apartment",
     src: "/img/apartment-01.jpg",
     isFavorite: true,
-    city: "Amsterdam",
+    city: {
+      cityLocation: {
+        latitude: 52.370216,
+        longitude: 4.895168,
+      },
+      name: "Amsterdam",
+    },
     bedrooms: 3,
     maxAdults: 4,
     isPremium: false,
@@ -27,11 +34,16 @@ export const offers: RoomType[] = [
     type: "Apartment",
     src: "/img/room.jpg",
     isFavorite: true,
-    city: "Amsterdam",
+    city: {
+      cityLocation: {
+        latitude: 52.370216,
+        longitude: 4.895168,
+      },
+      name: "Amsterdam",
+    },
     bedrooms: 1,
     maxAdults: 2,
     isPremium: false,
-
     location: {
       latitude: 52.369553943508,
       longitude: 4.85309666406198,
@@ -47,7 +59,13 @@ export const offers: RoomType[] = [
     type: "Private room",
     src: "/img/apartment-02.jpg",
     isFavorite: true,
-    city: "Amsterdam",
+    city: {
+      cityLocation: {
+        latitude: 52.370216,
+        longitude: 4.895168,
+      },
+      name: "Amsterdam",
+    },
     bedrooms: 2,
     maxAdults: 4,
     isPremium: false,
@@ -67,7 +85,13 @@ export const offers: RoomType[] = [
     type: "Apartment",
     src: "/img/apartment-03.jpg",
     isFavorite: false,
-    city: "Amsterdam",
+    city: {
+      cityLocation: {
+        latitude: 52.370216,
+        longitude: 4.895168,
+      },
+      name: "Amsterdam",
+    },
     bedrooms: 3,
     maxAdults: 2,
     isPremium: true,

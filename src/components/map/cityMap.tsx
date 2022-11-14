@@ -4,6 +4,7 @@ import defaultMarker from '../../assets/marker-icon.png'
 import selectedMarker from '../../assets/selected-marker-icon.png'
 import * as L from "leaflet";
 import {RoomType} from "../../types/types";
+import {nanoid} from "@reduxjs/toolkit";
 
 
 type CityMapProps = {
@@ -20,7 +21,7 @@ const CityMap = ({offers, offerHoveredId = "-1"}: CityMapProps): JSX.Element => 
   });
 
   return (
-    <MapContainer center={[offers[0].location.latitude, offers[0].location.longitude]} zoom={11} scrollWheelZoom={false}
+    <MapContainer center={[offers[0].city.cityLocation.latitude, offers[0].city.cityLocation.longitude]} zoom={11} scrollWheelZoom={false}
                   style={{"width": "100%", "height": 823, "marginBottom": 20}}>
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
@@ -29,7 +30,9 @@ const CityMap = ({offers, offerHoveredId = "-1"}: CityMapProps): JSX.Element => 
 
       {offers.map(({id, desc, location}) => {
         return <Marker position={[location.latitude, location.longitude]}
-                       icon={offerHoveredId === id ? selectedMarkerIcon : defaultIconIcon}>
+                       icon={offerHoveredId === id ? selectedMarkerIcon : defaultIconIcon}
+                       key={nanoid()}
+        >
           <Popup>
             {desc}
           </Popup>

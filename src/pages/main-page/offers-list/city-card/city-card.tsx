@@ -9,12 +9,13 @@ type CityCardProps = {
   index: number,
   onMouseEnter: MouseEventHandler,
   onMouseLeave: MouseEventHandler,
+  nearPlace: boolean
 }
 
-function CityCard({offer, onMouseEnter, onMouseLeave}: CityCardProps): JSX.Element {
+function CityCard({offer, onMouseEnter, onMouseLeave, nearPlace}: CityCardProps): JSX.Element {
   return (
-    <article className="cities__place-card place-card" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-      <div className="cities__image-wrapper place-card__image-wrapper">
+    <article className={nearPlace? "near-places__card place-card" :"cities__place-card place-card"} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+      <div className={nearPlace ? "near-places__image-wrapper place-card__image-wrapper" : "cities__image-wrapper place-card__image-wrapper"}>
         <Link to={"/offer/" + offer.id}>
           <img className="place-card__image" src={offer.src} width="260" height="200" alt="Place image"/>
         </Link>

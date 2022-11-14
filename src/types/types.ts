@@ -6,7 +6,13 @@ export type RoomType = {
   src: string,
   readonly id: string,
   isFavorite: boolean,
-  city: string,
+  city: {
+    cityLocation: {
+      latitude: number,
+      longitude: number,
+    },
+    name: "Amsterdam"
+  },
   bedrooms: number,
   maxAdults: number,
   isPremium: boolean,
@@ -14,5 +20,18 @@ export type RoomType = {
     latitude: number,
     longitude: number,
     zoom: number
+  }
+}
+
+export type CommentType = {
+  comment: string,
+  date: string,
+  id: number,
+  rating: number,
+  user: {
+    avatar_url: string,
+    id: number,
+    is_pro: boolean,
+    name: string
   }
 }
