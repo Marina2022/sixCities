@@ -8,6 +8,7 @@ type FavoriteListOfCityProps = {
 }
 
 function FavoriteListOfCity({offers, city}: FavoriteListOfCityProps): JSX.Element {
+
   const offersForCity = offers.filter(offer => offer.city === city)
   return (
     <>

@@ -2,6 +2,8 @@ import {Navigate, useParams} from "react-router-dom";
 import {RoomType} from "../../types/types";
 import Rating from "../../components/rating/rating";
 import CommentsForm from "./comments-form/comments-form";
+import CityMap from "../../components/map/cityMap";
+
 
 type RoomPageProps = {
   hasAccess: boolean,
@@ -11,6 +13,7 @@ type RoomPageProps = {
 function RoomPage({hasAccess, offers}: RoomPageProps): JSX.Element {
   const {id: currentId} = useParams()
   const room = offers.find(offer => offer.id === currentId || '')
+  if (!room) return <></>
 
   return (
     !hasAccess ? <Navigate to="/login"/> :
@@ -151,17 +154,7 @@ function RoomPage({hasAccess, offers}: RoomPageProps): JSX.Element {
                       </span>
                     </div>
                     <div className="reviews__info">
-
-                      {/*<div className="reviews__rating rating">*/}
-                      {/*  <div className="reviews__stars rating__stars">*/}
-                      {/*    <span style={{"width": "80%"}}></span>*/}
-                      {/*    <span className="visually-hidden">Rating</span>*/}
-                      {/*  </div>*/}
-                      {/*</div>*/}
-
                       {room ? <Rating rating={room.rating}/> : ''}
-
-
                       <p className="reviews__text">
                         A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.
                         The
@@ -177,7 +170,9 @@ function RoomPage({hasAccess, offers}: RoomPageProps): JSX.Element {
               </section>
             </div>
           </div>
-          <section className="property__map map"></section>
+          <section className="map" style={{'textAlign': 'center'}}>
+            <CityMap  offers={[room]} offerHoveredId={'-1'}/>
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">

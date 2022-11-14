@@ -10,4 +10,9 @@ export type RoomType = {
   bedrooms: number,
   maxAdults: number,
   isPremium: boolean,
+  location: {
+    latitude: number,
+    longitude: number,
+    zoom: number
+  }
 }

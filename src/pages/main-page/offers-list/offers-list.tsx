@@ -1,16 +1,21 @@
 import {RoomType} from "../../../types/types";
 import CityCard from "./city-card/city-card";
-import {useState} from "react";
 
 type OffersListProps = {
-  offers: RoomType[]
+  offers: RoomType[],
+  setActiveCard: (id: string) => void
 }
 
-function OffersList({offers}: OffersListProps): JSX.Element {
-  const [activeCard, setActiveCard] = useState(offers[0].id)
-  const handleMouseEnter = (id: string)=>{
+function OffersList({offers, setActiveCard}: OffersListProps): JSX.Element {
+
+  const handleMouseEnter = (id: string) => {
     setActiveCard(id)
   }
+  const handleMouseLeave = () => {
+    setActiveCard('-1')
+  }
+
+
   return (
     <div className="cities__places-list places__list tabs__content">
       {
@@ -19,12 +24,13 @@ function OffersList({offers}: OffersListProps): JSX.Element {
             index={index}
             offer={offer}
             key={offer.id}
-            onMouseEnter={()=>handleMouseEnter(offer.id)}
+            onMouseEnter={() => handleMouseEnter(offer.id)}
+            onMouseLeave={() => handleMouseLeave()}
           />
         )
       }
     </div>
-  )
+  );
 }
 
 export default OffersList

@@ -7,12 +7,13 @@ import {Link} from "react-router-dom";
 type CityCardProps = {
   offer: RoomType,
   index: number,
-  onMouseEnter: MouseEventHandler
+  onMouseEnter: MouseEventHandler,
+  onMouseLeave: MouseEventHandler,
 }
 
-function CityCard({offer, index, onMouseEnter}: CityCardProps): JSX.Element {
+function CityCard({offer, onMouseEnter, onMouseLeave}: CityCardProps): JSX.Element {
   return (
-    <article className="cities__place-card place-card" onMouseEnter={onMouseEnter}>
+    <article className="cities__place-card place-card" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={"/offer/" + offer.id}>
           <img className="place-card__image" src={offer.src} width="260" height="200" alt="Place image"/>

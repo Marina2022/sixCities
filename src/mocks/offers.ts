@@ -1,6 +1,4 @@
 import {RoomType} from "../types/types";
-import {nanoid} from "@reduxjs/toolkit";
-
 export const offers: RoomType[] = [
   {
     id: "111",
@@ -14,6 +12,11 @@ export const offers: RoomType[] = [
     bedrooms: 3,
     maxAdults: 4,
     isPremium: false,
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
+      zoom: 8
+    },
   },
 
   {
@@ -28,6 +31,12 @@ export const offers: RoomType[] = [
     bedrooms: 1,
     maxAdults: 2,
     isPremium: false,
+
+    location: {
+      latitude: 52.369553943508,
+      longitude: 4.85309666406198,
+      zoom: 8
+    },
   },
 
   {
@@ -38,10 +47,16 @@ export const offers: RoomType[] = [
     type: "Private room",
     src: "/img/apartment-02.jpg",
     isFavorite: true,
-    city: "Cologne",
+    city: "Amsterdam",
     bedrooms: 2,
     maxAdults: 4,
     isPremium: false,
+
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.929309666406198,
+      zoom: 8
+    },
   },
 
   {
@@ -56,7 +71,12 @@ export const offers: RoomType[] = [
     bedrooms: 3,
     maxAdults: 2,
     isPremium: true,
-  },
 
+    location: {
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
+      zoom: 8
+    },
+  },
 
 ]
