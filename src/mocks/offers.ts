@@ -3,7 +3,7 @@ import {RoomType} from "../types/types";
 export const offers: RoomType[] = [
   {
     id: "111",
-    price: 80,
+    price: 132,
     desc: "Beautiful &amp; luxurious apartment at great location",
     rating: 3,
     type: "Apartment",
@@ -53,7 +53,7 @@ export const offers: RoomType[] = [
 
   {
     id: "3",
-    price: 132,
+    price: 80,
     desc: "Canal View Prinsengracht",
     rating: 5,
     type: "Private room",
