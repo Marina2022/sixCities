@@ -4,16 +4,22 @@ import OffersList from "./offers-list/offers-list";
 import CityLocations from "./city-locations/city-locations";
 import SortOffers from "./sort-offers/sort-offers";
 import CityMap from "../../components/map/cityMap";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
+import {setOffers} from "../../store/actions";
+import {offers} from "../../mocks/offers";
 
-type MainPageProps = {
-  offers: RoomType[]
-}
 
-function MainPage({offers}: MainPageProps): JSX.Element {
-
+function MainPage(): JSX.Element {
+  const currentOffers = useAppSelector(state=>state.currentOffers)
   const [activeCard, setActiveCard] = useState('-1')
 
+  const dispatch = useAppDispatch()
+  useEffect(()=>{
+    dispatch(setOffers(offers));  //
+  },[])
+
+  if (!currentOffers) return <div>spinner</div>
 
   return (
     <main className="page__main page__main--index">
@@ -25,13 +31,13 @@ function MainPage({offers}: MainPageProps): JSX.Element {
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">312 places to stay in Amsterdam</b>
+            <b className="places__found">{currentOffers.length} places to stay in Amsterdam</b>
             <SortOffers/>
-            <OffersList offers={offers} setActiveCard={setActiveCard}/>
+            <OffersList offers={currentOffers} setActiveCard={setActiveCard}/>
           </section>
           <div className="cities__right-section">
             <section className="cities__map map">
-              <CityMap offers={offers} offerHoveredId={activeCard}/>
+              <CityMap offers={currentOffers} offerHoveredId={activeCard}/>
             </section>
           </div>
         </div>

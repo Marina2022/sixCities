@@ -13,6 +13,8 @@ type CityMapProps = {
 }
 
 const CityMap = ({offers, offerHoveredId = "-1"}: CityMapProps): JSX.Element => {
+  if (!offers.length) return <div></div>
+
   let defaultIconIcon = L.icon({
     iconUrl: defaultMarker,
   });

@@ -15,7 +15,7 @@ function App({offers}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<MainPage offers={offers}/>}/>
+        <Route path="/" element={<MainPage/>}/>
         <Route path="/login" element={<LoginPage/>}/>
         <Route path="/offer/:id" element={<RoomPage hasAccess={hasAccess} offers={offers}/>}/>
         <Route path="/favorites" element={<Favorites offers={offers}/>}/>

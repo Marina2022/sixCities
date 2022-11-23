@@ -24,7 +24,7 @@ export const comments = [
     }
   },
   {
-    comment: "it's really very good and we had great time here",
+    comment: "it's really very good and we had a great time here",
     date: "2019-02-08T14:18:43.529Z",
     id: 3,
     rating: 5,
@@ -32,7 +32,7 @@ export const comments = [
       avatar_url: "img/3.jpg",
       id: 1,
       is_pro: true,
-      name: "Sunny"
+      name: "Marina Iutina"
     }
   },
   {
@@ -44,7 +44,7 @@ export const comments = [
       avatar_url: "img/4.jpg",
       id: 2,
       is_pro: false,
-      name: "Cloudy"
+      name: "Sunny"
     }
   },
 

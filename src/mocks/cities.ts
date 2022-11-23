@@ -1,1 +1,2 @@
-export const cities: string[] = ["Amsterdam", "Cologne", "Paris", "Kirov", "Tokio", "Istanbul"]
+export const cities: string[] = ["Amsterdam", "Cologne", "Paris", "Brussels", "Hamburg", "Dusseldorf"]
+
