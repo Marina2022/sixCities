@@ -1,12 +1,9 @@
-import FavoriteListOfCity from "./favorite-offers-for-city/favorite-list-of-city";
 import {RoomType} from "../../types/types";
 import FavoriteCities from "./favorite-cities/favorite-cities";
+import {useAppSelector} from "../../hooks/hooks";
 
-export type FavoriteProps = {
-  offers: RoomType[]
-}
-
-function Favorites({offers}: FavoriteProps): JSX.Element {
+function Favorites(): JSX.Element {
+  const offers = useAppSelector(state=>state.offersForChosenCity)
   return (
     <div className="page__favorites-container container">
       <section className="favorites">

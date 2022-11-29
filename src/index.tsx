@@ -1,24 +1,34 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
-import {offers} from "./mocks/offers";
 import {configureStore} from "@reduxjs/toolkit";
 import {Provider} from "react-redux";
-import mainPageReducer from "./store/mainPageReducer";
-
+import rootReducer from "./store/rootReducer";
+import {createAPI} from "./services/api";
+import {fetchOffers} from "./store/api-actions";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 
-const store = configureStore({reducer: mainPageReducer})
-export type GlobalState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+export const api = createAPI()
+
+export const store = configureStore({
+  reducer: rootReducer,
+  middleware: getDefaultMiddleware => getDefaultMiddleware({
+    thunk: {
+      extraArgument: api
+    }
+  })
+})
+
+
+store.dispatch(fetchOffers())
 
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App offers={offers}/>
+      <App/>
     </Provider>
   </React.StrictMode>,
 );

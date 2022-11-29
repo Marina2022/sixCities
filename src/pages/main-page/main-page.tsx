@@ -1,27 +1,21 @@
-import {RoomType} from "../../types/types";
 import {cities} from "../../mocks/cities"
 import OffersList from "./offers-list/offers-list";
 import CityLocations from "./city-locations/city-locations";
 import SortOffers from "./sort-offers/sort-offers";
 import CityMap from "../../components/map/cityMap";
-import {useEffect, useState} from "react";
-import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
-import {setOffers} from "../../store/actions";
-import {offers} from "../../mocks/offers";
-
+import {useState} from "react";
+import {useAppSelector} from "../../hooks/hooks";
+import {RotatingLines} from 'react-loader-spinner'
 
 function MainPage(): JSX.Element {
-  const currentOffers = useAppSelector(state=>state.currentOffers)
+  const currentOffers = useAppSelector(state=>state.offersForChosenCity)
+  const isLoading = useAppSelector(state=> state.isLoading)
   const [activeCard, setActiveCard] = useState('-1')
 
-  const dispatch = useAppDispatch()
-  useEffect(()=>{
-    dispatch(setOffers(offers));  //
-  },[])
-
-  if (!currentOffers) return <div>spinner</div>
+  if (isLoading) return <div style={{'textAlign' : 'center'}}><RotatingLines strokeColor="#4481c3" /></div>
 
   return (
+
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
@@ -31,14 +25,12 @@ function MainPage(): JSX.Element {
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{currentOffers.length} places to stay in Amsterdam</b>
+            <b className="places__found">{currentOffers.length} places to stay in {currentOffers[0].city.name}</b>
             <SortOffers/>
             <OffersList offers={currentOffers} setActiveCard={setActiveCard}/>
           </section>
           <div className="cities__right-section">
-            <section className="cities__map map">
               <CityMap offers={currentOffers} offerHoveredId={activeCard}/>
-            </section>
           </div>
         </div>
       </div>

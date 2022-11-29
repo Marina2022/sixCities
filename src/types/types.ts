@@ -2,7 +2,7 @@ export type RoomType = {
   price: number,
   rating: number,
   desc: string
-  type: "Private room" | "Apartment" | "House" | "Hotel"
+  type: "private room" | "apartment" | "house" | "hotel"
   src: string,
   readonly id: string,
   isFavorite: boolean,
