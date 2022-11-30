@@ -20,7 +20,16 @@ export type RoomType = {
     latitude: number,
     longitude: number,
     zoom: number
-  }
+  },
+  title: string,
+  host: {
+    avatarUrl: string,
+    id: string,
+    isPro: boolean,
+    name: string
+  },
+  images: string[],
+  goods: string[],
 }
 
 export type CommentType = {
@@ -34,6 +43,15 @@ export type CommentType = {
     is_pro: boolean,
     name: string
   }
+}
+
+export type UserData = {
+  avatarUrl?: string,
+  email?: string,
+  id?: number,
+  isPro?: boolean,
+  name?: string
+
 }
 
 

@@ -1,54 +1,75 @@
-import {ChangeEventHandler, FormEventHandler, useState} from "react";
+import React, {ChangeEventHandler, FormEventHandler, useState} from "react";
+import {nanoid} from "@reduxjs/toolkit";
+import {sendReview} from "../../../store/api-actions";
+import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
+import {AuthStatus} from "../../../consts";
 
-function CommentsForm(): JSX.Element{
+type CommentsFormProps = {
+  roomId?: string
+}
+
+function CommentsForm({roomId}:CommentsFormProps): JSX.Element {
+
+
+  const dispatch = useAppDispatch()
+
+  const authStatus = useAppSelector(state => state.authStatus)
+
   const [text, setText] = useState('')
+  const [rating, setRating] = useState(0)
+
   const onTextChange: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     setText(e.target.value)
   }
+
+  if (authStatus !== AuthStatus.Auth) return <></>
+  const isDisabled = text.length < 50 || rating == 0
+
+  const onFormSubmit: FormEventHandler = (e) => {
+    e.preventDefault()
+    dispatch(sendReview(
+      {
+        id: roomId,
+        body: {
+          comment: text,
+          rating: rating
+        }
+      }
+    ))
+    setText('');
+    setRating(0)
+  }
+
+  const onRatingChange = (id: number) => {
+    setRating(id)
+  }
+  const ratingArray = [
+    'perfect',
+    'good',
+    'not bad',
+    'badly',
+    'terribly'
+  ]
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" action="#" method="post" onSubmit={onFormSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars"
-               type="radio"/>
-        <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
-          <svg className="form__star-image" width="37" height="33">
-            <use xlinkHref="#icon-star"></use>
-          </svg>
-        </label>
 
-        <input className="form__rating-input visually-hidden" name="rating" value="4" id="4-stars"
-               type="radio"/>
-        <label htmlFor="4-stars" className="reviews__rating-label form__rating-label" title="good">
-          <svg className="form__star-image" width="37" height="33">
-            <use xlinkHref="#icon-star"></use>
-          </svg>
-        </label>
+        {
+          ratingArray.map((item, index) => {
+            return <React.Fragment key={nanoid()}>
+              <input className="form__rating-input visually-hidden" name="rating" value="{index+1}"
+                     id={`${5 - index}-stars`}
+                     type="radio" onChange={() => onRatingChange(5 - index)} checked={5 - index == rating}/>
+              <label htmlFor={`${5 - index}-stars`} className="reviews__rating-label form__rating-label" title={item}>
+                <svg className="form__star-image" width="37" height="33">
+                  <use xlinkHref="#icon-star"></use>
+                </svg>
+              </label>
+            </React.Fragment>
+          })
+        }
 
-        <input className="form__rating-input visually-hidden" name="rating" value="3" id="3-stars"
-               type="radio"/>
-        <label htmlFor="3-stars" className="reviews__rating-label form__rating-label" title="not bad">
-          <svg className="form__star-image" width="37" height="33">
-            <use xlinkHref="#icon-star"></use>
-          </svg>
-        </label>
-
-        <input className="form__rating-input visually-hidden" name="rating" value="2" id="2-stars"
-               type="radio"/>
-        <label htmlFor="2-stars" className="reviews__rating-label form__rating-label" title="badly">
-          <svg className="form__star-image" width="37" height="33">
-            <use xlinkHref="#icon-star"></use>
-          </svg>
-        </label>
-
-        <input className="form__rating-input visually-hidden" name="rating" value="1" id="1-star"
-               type="radio"/>
-        <label htmlFor="1-star" className="reviews__rating-label form__rating-label"
-               title="terribly">
-          <svg className="form__star-image" width="37" height="33">
-            <use xlinkHref="#icon-star"></use>
-          </svg>
-        </label>
       </div>
       <textarea className="reviews__textarea form__textarea" id="review" name="review"
                 placeholder="Tell how was your stay, what you like and what can be improved"
@@ -62,9 +83,10 @@ function CommentsForm(): JSX.Element{
           describe
           your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={isDisabled}>Submit</button>
       </div>
     </form>
   )
 }
+
 export default CommentsForm

@@ -17,7 +17,7 @@ const Review = ({comment}: ReviewProps): JSX.Element => {
         <span className="reviews__user-name">{comment.user.name}</span>
       </div>
       <div className="reviews__info">
-        <Rating rating={comment.rating}/>
+        <Rating rating={comment.rating} classFor={'place-card'}/>
         <p className="reviews__text">
           {comment.comment}
         </p>

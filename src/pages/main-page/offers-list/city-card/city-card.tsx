@@ -28,9 +28,9 @@ function CityCard({offer, onMouseEnter, onMouseLeave, nearPlace}: CityCardProps)
           </div>
           <Bookmark isFavorite={offer.isFavorite}/>
         </div>
-        <Rating rating={offer.rating}/>
+        <Rating rating={offer.rating} classFor={'place-card'}/>
         <h2 className="place-card__name">
-          <a href="src/pages/main-page/offers-list/city-card/city-card#">{offer.desc}</a>
+          <a href="src/pages/main-page/offers-list/city-card/city-card#">{offer.title}</a>
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>

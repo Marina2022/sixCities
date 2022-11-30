@@ -5,7 +5,7 @@ import {configureStore} from "@reduxjs/toolkit";
 import {Provider} from "react-redux";
 import rootReducer from "./store/rootReducer";
 import {createAPI} from "./services/api";
-import {fetchOffers} from "./store/api-actions";
+import {checkAuth, fetchOffers} from "./store/api-actions";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -24,6 +24,7 @@ export const store = configureStore({
 
 
 store.dispatch(fetchOffers())
+store.dispatch(checkAuth())
 
 root.render(
   <React.StrictMode>

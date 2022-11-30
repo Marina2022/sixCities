@@ -16,27 +16,40 @@ export const getSortedOffers = (offers: RoomType[], variant: string) => {
   }
 }
 
-export const getAdaptedOffers = (offers: any) => {
-  return offers.map((offer: any) => ({
-    price: offer.price,
-    rating: offer.rating,
-    desc: offer.description,
-    type: offer.type,
-    src: offer.preview_image,
-    id: offer.id,
-    isFavorite: offer.is_favorite,
-    city: {
-      cityLocation: offer.city.location,
-      name: offer.city.name
-    },
-    bedrooms: offer.bedrooms,
-    maxAdults: offer.max_adults,
-    isPremium: offer.is_premium,
-    location: {
-      latitude: offer.location.latitude,
-      longitude: offer.location.longitude,
-      zoom: offer.location.zoom
-    }
-  }))
-}
+export const getAdaptedOffer = (offer: any) => ({
+  price: offer.price,
+  rating: offer.rating,
+  desc: offer.description,
+  type: offer.type,
+  src: offer.preview_image,
+  id: offer.id,
+  isFavorite: offer.is_favorite,
+  city: {
+    cityLocation: offer.city.location,
+    name: offer.city.name
+  },
+  bedrooms: offer.bedrooms,
+  maxAdults: offer.max_adults,
+  isPremium: offer.is_premium,
+  location: {
+    latitude: offer.location.latitude,
+    longitude: offer.location.longitude,
+    zoom: offer.location.zoom
+  },
+  title: offer.title,
+  host: {
+    avatarUrl: offer.host.avatar_url,
+    id: offer.host.id,
+    isPro: offer.host.is_pro,
+    name: offer.host.name
+  },
+  images: offer.images,
+  goods: offer.goods,
 
+})
+
+
+
+export const getAdaptedOffers = (offers: any[]) => {
+  return offers.map((offer: any) => getAdaptedOffer(offer))
+}
