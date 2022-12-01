@@ -1,7 +1,10 @@
 import {useAppDispatch} from "../../hooks/hooks";
 import {sendFavor} from "../../store/api-actions";
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1ea9e12f7aa7306035723986b93f9e000efefa23
 type BookmarkProps = {
   isFavorite: boolean,
   offerId: string

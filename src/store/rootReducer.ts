@@ -70,6 +70,7 @@ const rootReducer = createReducer(initialState, (builder) =>
       state.comments = action.payload
     })
 
+<<<<<<< HEAD
     .addCase(updateFavorite, (state, action) => {
 
       const index = state.offersForChosenCity.findIndex(offer => offer.id === action.payload.id)
@@ -80,6 +81,16 @@ const rootReducer = createReducer(initialState, (builder) =>
         if (state.roomData.id === action.payload.id) state.roomData = action.payload
           }
     })
+=======
+  .addCase(updateFavorite, (state, action)=>{
+
+    const index = state.offersForChosenCity.findIndex(offer=>offer.id === action.payload.id)
+    state.offersForChosenCity[index] = action.payload
+    state.offers[index] = action.payload
+    state.notSortedOffers[index] = action.payload
+  })
+
+>>>>>>> 1ea9e12f7aa7306035723986b93f9e000efefa23
 )
 
 
