@@ -11,4 +11,5 @@ export const setUserData = createAction<UserData>('main/setUserData')
 export const setRoomData = createAction<RoomType>('main/setRoomData')
 export const setNearbyData = createAction<RoomType[]>('main/setNearbyData')
 export const setComments = createAction<CommentType[]>('main/setComments')
+export const updateFavorite = createAction<RoomType>('main/updateFavorite')
 

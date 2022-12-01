@@ -5,16 +5,17 @@ import {ReviewsList} from "./reviews-list/reviews-list";
 import OffersList from "../main-page/offers-list/offers-list";
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {useEffect, useSyncExternalStore} from "react";
-import {getRoom} from "../../store/api-actions";
+
 import {useSelector} from "react-redux";
 import Rating from "../../components/rating/rating";
 import {nanoid} from "@reduxjs/toolkit";
 import {RotatingLines} from "react-loader-spinner";
 import Header from "../../components/header/header";
+import cn from "classnames";
+import {getRoom, sendFavor} from "../../store/api-actions";
 
 
 function RoomPage(): JSX.Element {
-  const offers = useAppSelector(state => state.offersForChosenCity)
   const {id: currentId} = useParams()
   const room = useAppSelector(state => state.roomData)
 
@@ -25,6 +26,10 @@ function RoomPage(): JSX.Element {
       dispatch(getRoom(currentId))
     }
   }, [])
+
+  const sendToFavorites = (offerId: string, isFavorite: boolean) => {
+    dispatch(sendFavor({offerId, isFavorite}))
+  }
 
   const nearbyOffers = useAppSelector(state => state.nearbyData)
 
@@ -44,7 +49,7 @@ function RoomPage(): JSX.Element {
             <div className="property__gallery" style={{'width': 801, 'overflow': 'auto'}}>
 
               {
-                room.images.map((imageUrl) => <div key={nanoid()} className="property__image-wrapper">
+                room.images.map((imageUrl: string) => <div key={nanoid()} className="property__image-wrapper">
                   <img className="property__image" src={imageUrl} alt="Photo studio"/>
                 </div>)
               }
@@ -60,7 +65,8 @@ function RoomPage(): JSX.Element {
                 <h1 className="property__name">
                   {room.title}
                 </h1>
-                <button className="property__bookmark-button button" type="button">
+                <button onClick={()=>sendToFavorites(room.id, room.isFavorite)}  className={cn("property__bookmark-button", "button",
+                  room.isFavorite ? "property__bookmark-button--active" : '')} type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
@@ -91,7 +97,7 @@ function RoomPage(): JSX.Element {
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
                   {
-                    room.goods.map(goodsItem => <li key={nanoid()} className="property__inside-item">
+                    room.goods.map((goodsItem: string) => <li key={nanoid()} className="property__inside-item">
                       {goodsItem}
                     </li>)
                   }
@@ -125,7 +131,7 @@ function RoomPage(): JSX.Element {
             </div>
           </div>
           <div style={{'textAlign': 'center'}}>
-            {nearbyOffers ? <CityMap offers={nearbyOffers} offerHoveredId={'-1'}/> : '' }
+            {nearbyOffers ? <CityMap offers={nearbyOffers} offerHoveredId={'-1'}/> : ''}
 
           </div>
         </div>
