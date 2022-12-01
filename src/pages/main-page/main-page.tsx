@@ -7,6 +7,7 @@ import {useState} from "react";
 import {useAppSelector} from "../../hooks/hooks";
 import {RotatingLines} from "react-loader-spinner";
 import Header from "../../components/header/header";
+import EmptyMainPage from "./emtpty-main-page";
 
 
 function MainPage(): JSX.Element {
@@ -25,19 +26,25 @@ function MainPage(): JSX.Element {
         <div className="tabs">
           <CityLocations citiesList={cities}/>
         </div>
-        <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{currentOffers.length} places to stay in {currentOffers[0].city.name}</b>
-              <SortOffers/>
-              <OffersList offers={currentOffers} setActiveCard={setActiveCard}/>
-            </section>
-            <div className="cities__right-section">
-              <CityMap offers={currentOffers} offerHoveredId={activeCard}/>
+
+        {
+          currentOffers.length === 0 ? <EmptyMainPage/> :
+
+          <div className="cities">
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">{currentOffers.length} places to stay in {currentOffers[0].city.name}</b>
+                <SortOffers/>
+                <OffersList offers={currentOffers} setActiveCard={setActiveCard}/>
+              </section>
+              <div className="cities__right-section">
+                <CityMap offers={currentOffers} offerHoveredId={activeCard}/>
+              </div>
             </div>
           </div>
-        </div>
+        }
+
       </main>
     </>
   )

@@ -11,6 +11,7 @@ import Rating from "../../components/rating/rating";
 import {nanoid} from "@reduxjs/toolkit";
 import {RotatingLines} from "react-loader-spinner";
 import Header from "../../components/header/header";
+import cn from "classnames";
 
 
 function RoomPage(): JSX.Element {
@@ -60,7 +61,8 @@ function RoomPage(): JSX.Element {
                 <h1 className="property__name">
                   {room.title}
                 </h1>
-                <button className="property__bookmark-button button" type="button">
+                <button className={cn("property__bookmark-button", "button",
+                  room.isFavorite ? "property__bookmark-button--active" : '')} type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
@@ -125,7 +127,7 @@ function RoomPage(): JSX.Element {
             </div>
           </div>
           <div style={{'textAlign': 'center'}}>
-            {nearbyOffers ? <CityMap offers={nearbyOffers} offerHoveredId={'-1'}/> : '' }
+            {nearbyOffers ? <CityMap offers={nearbyOffers} offerHoveredId={'-1'}/> : ''}
 
           </div>
         </div>

@@ -10,7 +10,7 @@ import {
   setIsLoading,
   setNearbyData,
   setRoomData,
-  setUserData
+  setUserData, updateFavorite
 } from "./actions";
 import {api} from "../index";
 import {getAdaptedOffer, getAdaptedOffers} from "../utils/utils";
@@ -144,4 +144,20 @@ export const sendReview = createAsyncThunk<void, SendReviewType, {
 }>('main/sendReview', async(arg, {dispatch, extra: api}) => {
   const response = await api.post(APIRoutes.Comments + '/' + arg.id, arg.body)
   dispatch(setComments(response.data))
+})
+
+export const sendFavor = createAsyncThunk<void, {
+  offerId: string,
+  isFavorite: boolean
+}, {
+  dispatch: AppDispatch,
+  state: GlobalState,
+  extra: AxiosInstance
+}>('main/sendFavor', async(favorData, {dispatch, extra: api, getState})=>{
+  if(getState().authStatus !== AuthStatus.Auth) {
+    history.push(APIRoutes.Login)
+  } else {
+    const response = await api.post('/favorite/' + favorData.offerId + '/' + Number(!favorData.isFavorite))
+    dispatch(updateFavorite(getAdaptedOffer(response.data)))
+  }
 })

@@ -7,7 +7,7 @@ import {
   setNearbyData,
   setRoomData,
   setSortVariant,
-  setUserData
+  setUserData, updateFavorite
 } from "./actions";
 import {CommentType, RoomType, UserData} from "../types/types";
 import {getSortedOffers} from "../utils/utils";
@@ -68,6 +68,14 @@ builder
 
   .addCase(setComments, (state, action)=>{
     state.comments = action.payload
+  })
+
+  .addCase(updateFavorite, (state, action)=>{
+
+    const index = state.offersForChosenCity.findIndex(offer=>offer.id === action.payload.id)
+    state.offersForChosenCity[index] = action.payload
+    state.offers[index] = action.payload
+    state.notSortedOffers[index] = action.payload
   })
 
 )
