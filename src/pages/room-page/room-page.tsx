@@ -12,10 +12,8 @@ import {nanoid} from "@reduxjs/toolkit";
 import {RotatingLines} from "react-loader-spinner";
 import Header from "../../components/header/header";
 import cn from "classnames";
-<<<<<<< HEAD
+
 import {getRoom, sendFavor} from "../../store/api-actions";
-=======
->>>>>>> 1ea9e12f7aa7306035723986b93f9e000efefa23
 
 
 function RoomPage(): JSX.Element {
@@ -68,11 +66,7 @@ function RoomPage(): JSX.Element {
                 <h1 className="property__name">
                   {room.title}
                 </h1>
-<<<<<<< HEAD
                 <button onClick={()=>sendToFavorites(room.id, room.isFavorite)}  className={cn("property__bookmark-button", "button",
-=======
-                <button className={cn("property__bookmark-button", "button",
->>>>>>> 1ea9e12f7aa7306035723986b93f9e000efefa23
                   room.isFavorite ? "property__bookmark-button--active" : '')} type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
