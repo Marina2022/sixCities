@@ -8,14 +8,15 @@ import {useAppSelector} from "../../hooks/hooks";
 import {RotatingLines} from "react-loader-spinner";
 import Header from "../../components/header/header";
 import EmptyMainPage from "./emtpty-main-page";
+import {selectIsLoading, selectOffersForChosenCity} from "../../store/reducers/dataReducer";
 
 
 function MainPage(): JSX.Element {
-  const currentOffers = useAppSelector(state => state.offersForChosenCity)
+  const currentOffers = useAppSelector(selectOffersForChosenCity)
 
   const [activeCard, setActiveCard] = useState('-1')
 
-  const isLoading = useAppSelector(state => state.isLoading)
+  const isLoading = useAppSelector(selectIsLoading)
   if (isLoading) return <div style={{'textAlign': 'center', 'padding': 50}}><RotatingLines strokeColor="#4481c3"/></div>
 
 

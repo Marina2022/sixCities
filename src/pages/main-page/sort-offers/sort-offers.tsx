@@ -1,9 +1,9 @@
 import classNames from "classnames";
 import cn from "classnames";
 import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
-import {setSortVariant} from "../../../store/actions";
 import {nanoid} from "@reduxjs/toolkit";
 import {useState} from "react";
+import {selectCurrentSort, setSortVariant} from "../../../store/reducers/dataReducer";
 
 function SortOffers(): JSX.Element {
   const dispatch = useAppDispatch()
@@ -14,7 +14,7 @@ function SortOffers(): JSX.Element {
 
   const onVariantClick = () => setOpened((opened)=>!opened)
 
-  const currentSort = useAppSelector(state => state.currentSort)
+  const currentSort = useAppSelector(selectCurrentSort)
   const sortVariants = ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first']
 
   const [opened, setOpened] = useState(false)

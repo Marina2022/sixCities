@@ -1,7 +1,7 @@
 import {nanoid} from "@reduxjs/toolkit";
-import {setCity} from "../../../store/actions";
 import cn from 'classnames'
 import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
+import {selectActiveCity, setCity} from "../../../store/reducers/dataReducer";
 
 type CityLocationsProps = {
   citiesList: string[]
@@ -10,7 +10,7 @@ type CityLocationsProps = {
 function CityLocations({citiesList}: CityLocationsProps): JSX.Element {
 
   const dispatch = useAppDispatch()
-  const activeCity = useAppSelector(state => state.activeCity)
+  const activeCity = useAppSelector(selectActiveCity)
 
   const onCitySelect = (city: string) =>{
     dispatch(setCity(city))

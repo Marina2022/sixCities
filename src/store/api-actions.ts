@@ -2,22 +2,20 @@ import {createAsyncThunk} from "@reduxjs/toolkit";
 import {AppDispatch, GlobalState} from "../types/storeTypes";
 import {AxiosError, AxiosInstance} from "axios";
 import {CommentType, RoomType} from "../types/types"
-
-import {
-  offersLoaded,
-  setAuthStatus,
-  setComments,
-  setIsLoading,
-  setNearbyData,
-  setRoomData,
-  setUserData, updateFavorite
-} from "./actions";
 import {api} from "../index";
 import {getAdaptedOffer, getAdaptedOffers} from "../utils/utils";
 import {APIRoutes, AuthStatus} from "../consts";
 import {dropToken, setToken} from "../services/token";
 import history from '../browserHistory'
-import App from "../components/app/app";
+import {
+  offersLoaded,
+  setComments,
+  setIsLoading,
+  setNearbyData,
+  setRoomData,
+  updateFavorite
+} from "./reducers/dataReducer";
+import {setAuthStatus, setUserData} from "./reducers/userReducer";
 
 export const fetchOffers = createAsyncThunk<void, undefined,
   {
@@ -100,7 +98,6 @@ export const signOut = createAsyncThunk<void, undefined, {
   } catch {
     // сетаем ошибку - не смогли разлогиниться даже
   }
-
 })
 
 
@@ -137,6 +134,7 @@ type SendReviewType ={
       rating: number
     }
 }
+
 export const sendReview = createAsyncThunk<void, SendReviewType, {
   dispatch: AppDispatch,
   state: GlobalState,
@@ -154,7 +152,7 @@ export const sendFavor = createAsyncThunk<void, {
   state: GlobalState,
   extra: AxiosInstance
 }>('main/sendFavor', async(favorData, {dispatch, extra: api, getState})=>{
-  if(getState().authStatus !== AuthStatus.Auth) {
+  if(getState().USER.authStatus !== AuthStatus.Auth) {
     history.push(APIRoutes.Login)
   } else {
     const response = await api.post('/favorite/' + favorData.offerId + '/' + Number(!favorData.isFavorite))

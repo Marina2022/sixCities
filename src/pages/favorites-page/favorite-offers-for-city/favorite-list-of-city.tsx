@@ -32,7 +32,7 @@ function FavoriteListOfCity({offers, city}: FavoriteListOfCityProps): JSX.Elemen
                   </div>
                     <Rating rating={offer.rating} classFor={'place-card'}  />
                   <h2 className="place-card__name">
-                    <a href="#">{offer.desc}</a>
+                    <a href="#">{offer.title}</a>
                   </h2>
                   <p className="place-card__type">{offer.type}</p>
                 </div>

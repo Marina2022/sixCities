@@ -3,6 +3,7 @@ import {nanoid} from "@reduxjs/toolkit";
 import {sendReview} from "../../../store/api-actions";
 import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
 import {AuthStatus} from "../../../consts";
+import {selectAuthStatus} from "../../../store/reducers/userReducer";
 
 type CommentsFormProps = {
   roomId?: string
@@ -13,7 +14,7 @@ function CommentsForm({roomId}:CommentsFormProps): JSX.Element {
 
   const dispatch = useAppDispatch()
 
-  const authStatus = useAppSelector(state => state.authStatus)
+  const authStatus = useAppSelector(selectAuthStatus)
 
   const [text, setText] = useState('')
   const [rating, setRating] = useState(0)

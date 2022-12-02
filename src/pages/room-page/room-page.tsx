@@ -4,9 +4,7 @@ import CityMap from "../../components/map/cityMap";
 import {ReviewsList} from "./reviews-list/reviews-list";
 import OffersList from "../main-page/offers-list/offers-list";
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
-import {useEffect, useSyncExternalStore} from "react";
-
-import {useSelector} from "react-redux";
+import {useEffect} from "react";
 import Rating from "../../components/rating/rating";
 import {nanoid} from "@reduxjs/toolkit";
 import {RotatingLines} from "react-loader-spinner";
@@ -14,11 +12,12 @@ import Header from "../../components/header/header";
 import cn from "classnames";
 
 import {getRoom, sendFavor} from "../../store/api-actions";
+import {selectIsLoading, selectNearbyData, selectRoomData} from "../../store/reducers/dataReducer";
 
 
 function RoomPage(): JSX.Element {
   const {id: currentId} = useParams()
-  const room = useAppSelector(state => state.roomData)
+  const room = useAppSelector(selectRoomData)
 
   const dispatch = useAppDispatch()
 
@@ -32,9 +31,8 @@ function RoomPage(): JSX.Element {
     dispatch(sendFavor({offerId, isFavorite}))
   }
 
-  const nearbyOffers = useAppSelector(state => state.nearbyData)
-
-  const isLoading = useAppSelector(state => state.isLoading)
+  const nearbyOffers = useAppSelector(selectNearbyData)
+  const isLoading = useAppSelector(selectIsLoading)
   if (isLoading) return <div style={{'textAlign': 'center', 'padding': 50}}><RotatingLines strokeColor="#4481c3"/></div>
 
   if (!room) return <>
@@ -48,13 +46,11 @@ function RoomPage(): JSX.Element {
         <div className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery" style={{'width': 801, 'overflow': 'auto'}}>
-
               {
                 room.images.map((imageUrl: string) => <div key={nanoid()} className="property__image-wrapper">
                   <img className="property__image" src={imageUrl} alt="Photo studio"/>
                 </div>)
               }
-
             </div>
           </div>
           <div className="property__container container">
@@ -75,7 +71,6 @@ function RoomPage(): JSX.Element {
                 </button>
               </div>
               <div className="property__rating rating">
-
                 <Rating rating={room.rating} classFor={'property'}/>
                 <span className="property__rating-value rating__value">{room.rating}</span>
               </div>
@@ -133,20 +128,17 @@ function RoomPage(): JSX.Element {
           </div>
           <div style={{'textAlign': 'center'}}>
             {nearbyOffers ? <CityMap offers={nearbyOffers} offerHoveredId={'-1'}/> : ''}
-
           </div>
         </div>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-
             {nearbyOffers ? <OffersList offers={nearbyOffers}/> : ''}
           </section>
         </div>
       </main>
     </>
   )
-
 }
 
 export default RoomPage

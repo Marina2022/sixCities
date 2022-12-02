@@ -3,11 +3,12 @@ import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {AuthStatus} from "../../consts";
 import React from "react";
 import {signOut} from "../../store/api-actions";
+import {selectAuthStatus, selectUserData} from "../../store/reducers/userReducer";
 
 function Header(): JSX.Element {
 
-  const authStatus = useAppSelector(state => state.authStatus)
-  const userData = useAppSelector(state => state.userData)
+  const authStatus = useAppSelector(selectAuthStatus)
+  const userData = useAppSelector(selectUserData)
 
   const dispatch = useAppDispatch()
 

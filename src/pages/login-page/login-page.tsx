@@ -1,10 +1,11 @@
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {FormEventHandler, useRef} from "react";
 import {sendLogin} from "../../store/api-actions";
+import {selectActiveCity} from "../../store/reducers/dataReducer";
 
 function LoginPage(): JSX.Element {
 
-  const activeCity = useAppSelector(state => state.activeCity)
+  const activeCity = useAppSelector(selectActiveCity)
 
   const emailRef = useRef<HTMLInputElement>(null)
   const passRef = useRef<HTMLInputElement>(null)
