@@ -50,6 +50,6 @@ export const getAdaptedOffer = (offer: any) => ({
 
 
 
-export const getAdaptedOffers = (offers: any[]) => {
+export const getAdaptedOffers = (offers: any[]): RoomType[] => {
   return offers.map((offer: any) => getAdaptedOffer(offer))
 }

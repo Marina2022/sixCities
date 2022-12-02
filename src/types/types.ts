@@ -55,3 +55,17 @@ export type UserData = {
 }
 
 
+export type FormData = {
+  email: string,
+  password: string
+}
+
+export type SendReviewType ={
+  id?: string,
+  body:
+    {
+      comment: string,
+      rating: number
+    }
+}
+

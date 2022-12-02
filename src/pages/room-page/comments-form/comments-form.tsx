@@ -1,9 +1,9 @@
 import React, {ChangeEventHandler, FormEventHandler, useState} from "react";
 import {nanoid} from "@reduxjs/toolkit";
-import {sendReview} from "../../../store/api-actions";
 import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
 import {AuthStatus} from "../../../consts";
 import {selectAuthStatus} from "../../../store/reducers/userReducer";
+import {selectReviewLoading, sendReview} from "../../../store/reducers/dataReducer";
 
 type CommentsFormProps = {
   roomId?: string
@@ -13,7 +13,7 @@ function CommentsForm({roomId}:CommentsFormProps): JSX.Element {
 
 
   const dispatch = useAppDispatch()
-
+  const isReviewLoading = useAppSelector(selectReviewLoading)
   const authStatus = useAppSelector(selectAuthStatus)
 
   const [text, setText] = useState('')
@@ -24,7 +24,7 @@ function CommentsForm({roomId}:CommentsFormProps): JSX.Element {
   }
 
   if (authStatus !== AuthStatus.Auth) return <></>
-  const isDisabled = text.length < 50 || rating == 0
+  const isDisabled = text.length < 50 || rating == 0 || isReviewLoading
 
   const onFormSubmit: FormEventHandler = (e) => {
     e.preventDefault()

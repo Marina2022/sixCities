@@ -1,6 +1,7 @@
 import {RoomType} from "../../../types/types";
 import Rating from "../../../components/rating/rating";
 import Bookmark from "../../../components/bookmark/bookmark";
+import {Link} from "react-router-dom";
 
 type FavoriteListOfCityProps = {
   offers: RoomType[],
@@ -17,10 +18,10 @@ function FavoriteListOfCity({offers, city}: FavoriteListOfCityProps): JSX.Elemen
           offersForCity.map(offer => (
               <article className="favorites__card place-card" key={offer.id}>
                 <div className="favorites__image-wrapper place-card__image-wrapper">
-                  <a href="#">
+                  <Link to={"/offer/" + offer.id}>
                     <img className="place-card__image" src={offer.src} width="150" height="110"
                          alt="Place image"/>
-                  </a>
+                  </Link>
                 </div>
                 <div className="favorites__card-info place-card__info">
                   <div className="place-card__price-wrapper">

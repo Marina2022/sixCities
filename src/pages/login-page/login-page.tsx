@@ -1,7 +1,7 @@
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {FormEventHandler, useRef} from "react";
-import {sendLogin} from "../../store/api-actions";
 import {selectActiveCity} from "../../store/reducers/dataReducer";
+import {sendLogin} from "../../store/reducers/userReducer";
 
 function LoginPage(): JSX.Element {
 

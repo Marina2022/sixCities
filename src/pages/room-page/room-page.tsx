@@ -11,8 +11,7 @@ import {RotatingLines} from "react-loader-spinner";
 import Header from "../../components/header/header";
 import cn from "classnames";
 
-import {getRoom, sendFavor} from "../../store/api-actions";
-import {selectIsLoading, selectNearbyData, selectRoomData} from "../../store/reducers/dataReducer";
+import {getRoom, selectIsLoading, selectNearbyData, selectRoomData, sendFavor} from "../../store/reducers/dataReducer";
 
 
 function RoomPage(): JSX.Element {

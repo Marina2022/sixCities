@@ -2,8 +2,7 @@ import {Link} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {AuthStatus} from "../../consts";
 import React from "react";
-import {signOut} from "../../store/api-actions";
-import {selectAuthStatus, selectUserData} from "../../store/reducers/userReducer";
+import {selectAuthStatus, selectUserData, signOut} from "../../store/reducers/userReducer";
 
 function Header(): JSX.Element {
 

@@ -5,7 +5,8 @@ import {configureStore} from "@reduxjs/toolkit";
 import {Provider} from "react-redux";
 import rootReducer from "./store/rootReducer";
 import {createAPI} from "./services/api";
-import {checkAuth, fetchOffers} from "./store/api-actions";
+import {fetchOffers} from "./store/reducers/dataReducer";
+import {checkAuth} from "./store/reducers/userReducer";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,

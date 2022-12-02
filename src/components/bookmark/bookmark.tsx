@@ -1,5 +1,5 @@
 import {useAppDispatch} from "../../hooks/hooks";
-import {sendFavor} from "../../store/api-actions";
+import {sendFavor} from "../../store/reducers/dataReducer";
 
 type BookmarkProps = {
   isFavorite: boolean,
