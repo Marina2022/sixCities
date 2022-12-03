@@ -6,8 +6,11 @@ import {selectAuthStatus, selectUserData, signOut} from "../../store/reducers/us
 
 function Header(): JSX.Element {
 
+
+
   const authStatus = useAppSelector(selectAuthStatus)
   const userData = useAppSelector(selectUserData)
+
 
   const dispatch = useAppDispatch()
 

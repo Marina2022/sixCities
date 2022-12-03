@@ -10,15 +10,11 @@ type CommentsFormProps = {
 }
 
 function CommentsForm({roomId}:CommentsFormProps): JSX.Element {
-
-
   const dispatch = useAppDispatch()
   const isReviewLoading = useAppSelector(selectReviewLoading)
   const authStatus = useAppSelector(selectAuthStatus)
-
   const [text, setText] = useState('')
   const [rating, setRating] = useState(0)
-
   const onTextChange: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     setText(e.target.value)
   }
@@ -76,7 +72,6 @@ function CommentsForm({roomId}:CommentsFormProps): JSX.Element {
                 placeholder="Tell how was your stay, what you like and what can be improved"
                 value={text}
                 onChange={onTextChange}
-
       ></textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">

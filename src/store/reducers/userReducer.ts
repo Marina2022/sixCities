@@ -41,16 +41,8 @@ const initialState = {
 const userReducer = createSlice({
     name: 'USER',
     initialState: initialState,
-    reducers: {
-      setUserData: (state, action) => {
-        state.userData = action.payload
-      },
-      setAuthStatus: (state, action) => {
-        state.authStatus = action.payload
-      }
-    },
+    reducers: {},
     extraReducers: (builder) => builder
-
       .addCase(checkAuth.fulfilled, (state, action) => {
         state.authStatus = AuthStatus.Auth
         state.userData = {
@@ -78,6 +70,7 @@ const userReducer = createSlice({
 
       .addCase(sendLogin.fulfilled, (state, action) => {
         state.userData = action.payload
+        state.authStatus = AuthStatus.Auth
         history.push('/')
       })
 

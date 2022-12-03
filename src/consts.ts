@@ -10,3 +10,5 @@ export enum APIRoutes {
   Logout = '/logout',
   Comments = '/comments'
 }
+
+export const cities: string[] = ["Amsterdam", "Cologne", "Paris", "Brussels", "Hamburg", "Dusseldorf"]

@@ -1,7 +1,5 @@
-import FavoriteOffersForCity from "../favorite-offers-for-city/favorite-list-of-city";
 import FavoriteListOfCity from "../favorite-offers-for-city/favorite-list-of-city";
 import {nanoid} from "@reduxjs/toolkit";
-import {ReactNode} from "react";
 import {RoomType} from "../../../types/types";
 
 

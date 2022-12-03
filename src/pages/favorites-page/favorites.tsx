@@ -1,4 +1,3 @@
-import {RoomType} from "../../types/types";
 import FavoriteCities from "./favorite-cities/favorite-cities";
 import {useAppSelector} from "../../hooks/hooks";
 import {selectOffersForChosenCity} from "../../store/reducers/dataReducer";

@@ -25,21 +25,32 @@ export const sendFavor = createAsyncThunk
 
 
 export const getRoom = createAsyncThunk('data/getRoomData', async (id: string) => {
-  const response = await api.get(APIRoutes.Hotels + '/' + id)
-  const room = getAdaptedOffer(response.data)
-  const nearbyRooms = await api.get(APIRoutes.Hotels + '/' + id + '/' + 'nearby')
-  const adaptedNearby = getAdaptedOffers(nearbyRooms.data)
-  const comments = await api.get<CommentType[]>(APIRoutes.Comments + '/' + id)
-  const commentsData = comments.data
-
-  return {room, adaptedNearby, commentsData}
+  try {
+    const response = await api.get(APIRoutes.Hotels + '/' + id)
+    return getAdaptedOffer(response.data)
+  } catch (e) {
+    if (e instanceof AxiosError) {
+      if (e.code == 'ERR_BAD_REQUEST') history.push('/404')
+    }
+    throw new Error('error')
+  }
 })
 
-export const sendReview = createAsyncThunk('data/sendReview', async(arg:SendReviewType)=> {
-  const reps =  await api.post(APIRoutes.Comments + '/' + arg.id, arg.body)
+export const getNearby = createAsyncThunk('data/getNearby', async (id: string) => {
+  const nearbyRooms = await api.get(APIRoutes.Hotels + '/' + id + '/' + 'nearby')
+  return getAdaptedOffers(nearbyRooms.data)
+})
+
+export const getComments = createAsyncThunk('data/getComments', async (id: string) => {
+  const response = await api.get<CommentType[]>(APIRoutes.Comments + '/' + id)
+  return response.data
+})
+
+
+export const sendReview = createAsyncThunk('data/sendReview', async (arg: SendReviewType) => {
+  const reps = await api.post(APIRoutes.Comments + '/' + arg.id, arg.body)
   return reps.data
 })
-
 
 
 const initialState = {
@@ -62,24 +73,10 @@ const dataReducer = createSlice({
       state.activeCity = action.payload
     },
 
-    offersLoaded: (state, action) => {
-      state.offers = action.payload
-      state.offers = action.payload
-    },
-
     setSortVariant: (state, action) => {
       state.currentSort = action.payload
     },
 
-    setRoomData: (state, action) => {
-      state.roomData = action.payload
-    },
-    setNearbyData: (state, action) => {
-      state.nearbyData = action.payload
-    },
-    setComments: (state, action) => {
-      state.comments = action.payload
-    }
   },
 
   extraReducers: (builder) => builder
@@ -114,18 +111,20 @@ const dataReducer = createSlice({
     })
 
     .addCase(getRoom.fulfilled, (state, action) => {
-      const {room, adaptedNearby, commentsData} = action.payload
-      state.roomData = room
-      state.nearbyData = adaptedNearby
-      state.comments = commentsData
+      state.roomData = action.payload
       state.isLoading = false
     })
 
     .addCase(getRoom.rejected, (state, action) => {
       state.isLoading = false
-      if (action.payload instanceof AxiosError) {
-        if (action.payload.code == 'ERR_BAD_REQUEST') history.push('/404')
-      }
+    })
+
+    .addCase(getNearby.fulfilled, (state, action) => {
+      state.nearbyData = action.payload
+    })
+
+    .addCase(getComments.fulfilled, (state, action) => {
+      state.comments = action.payload
     })
 
 
@@ -166,7 +165,6 @@ export const selectOffersForChosenCity = createSelector(selectOffer, selectCurre
   const sortedOffers = getSortedOffers([...offers], currentSort)
   return sortedOffers.filter((offer) => offer.city.name === activeCity)
 })
-
 export const selectIsLoading = (state: GlobalState) => selectDataState(state).isLoading
 export const selectComments = (state: GlobalState) => selectDataState(state).comments
 export const selectNearbyData = (state: GlobalState) => selectDataState(state).nearbyData

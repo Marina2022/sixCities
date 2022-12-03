@@ -1,4 +1,3 @@
-import {cities} from "../../mocks/cities"
 import OffersList from "./offers-list/offers-list";
 import CityLocations from "./city-locations/city-locations";
 import SortOffers from "./sort-offers/sort-offers";
@@ -9,6 +8,7 @@ import {RotatingLines} from "react-loader-spinner";
 import Header from "../../components/header/header";
 import EmptyMainPage from "./emtpty-main-page";
 import {selectIsLoading, selectOffersForChosenCity} from "../../store/reducers/dataReducer";
+import {cities} from "../../consts";
 
 
 function MainPage(): JSX.Element {
@@ -31,19 +31,19 @@ function MainPage(): JSX.Element {
         {
           currentOffers.length === 0 ? <EmptyMainPage/> :
 
-          <div className="cities">
-            <div className="cities__places-container container">
-              <section className="cities__places places">
-                <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{currentOffers.length} places to stay in {currentOffers[0].city.name}</b>
-                <SortOffers/>
-                <OffersList offers={currentOffers} setActiveCard={setActiveCard}/>
-              </section>
-              <div className="cities__right-section">
-                <CityMap offers={currentOffers} offerHoveredId={activeCard}/>
+            <div className="cities">
+              <div className="cities__places-container container">
+                <section className="cities__places places">
+                  <h2 className="visually-hidden">Places</h2>
+                  <b className="places__found">{currentOffers.length} places to stay in {currentOffers[0].city.name}</b>
+                  <SortOffers/>
+                  <OffersList offers={currentOffers} setActiveCard={setActiveCard}/>
+                </section>
+                <div className="cities__right-section">
+                  <CityMap offers={currentOffers} offerHoveredId={activeCard}/>
+                </div>
               </div>
             </div>
-          </div>
         }
 
       </main>

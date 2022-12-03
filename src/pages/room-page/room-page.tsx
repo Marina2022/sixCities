@@ -11,7 +11,15 @@ import {RotatingLines} from "react-loader-spinner";
 import Header from "../../components/header/header";
 import cn from "classnames";
 
-import {getRoom, selectIsLoading, selectNearbyData, selectRoomData, sendFavor} from "../../store/reducers/dataReducer";
+import {
+  getComments,
+  getNearby,
+  getRoom,
+  selectIsLoading,
+  selectNearbyData,
+  selectRoomData,
+  sendFavor
+} from "../../store/reducers/dataReducer";
 
 
 function RoomPage(): JSX.Element {
@@ -23,8 +31,11 @@ function RoomPage(): JSX.Element {
   useEffect(() => {
     if (currentId) {
       dispatch(getRoom(currentId))
+      dispatch(getNearby(currentId))
+      dispatch(getComments(currentId))
+
     }
-  }, [])
+  }, [currentId])
 
   const sendToFavorites = (offerId: string, isFavorite: boolean) => {
     dispatch(sendFavor({offerId, isFavorite}))
@@ -32,11 +43,10 @@ function RoomPage(): JSX.Element {
 
   const nearbyOffers = useAppSelector(selectNearbyData)
   const isLoading = useAppSelector(selectIsLoading)
-  if (isLoading) return <div style={{'textAlign': 'center', 'padding': 50}}><RotatingLines strokeColor="#4481c3"/></div>
-
-  if (!room) return <>
-    <div style={{'textAlign': 'center', 'padding': 50}}><RotatingLines strokeColor="#4481c3"/></div>
-  </>
+  if (isLoading) {
+    return <div style={{'textAlign': 'center', 'padding': 50}}><RotatingLines strokeColor="#4481c3"/></div>
+  }
+  if (!room) return <> </>
 
   return (
     <>

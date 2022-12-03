@@ -7,6 +7,8 @@ import rootReducer from "./store/rootReducer";
 import {createAPI} from "./services/api";
 import {fetchOffers} from "./store/reducers/dataReducer";
 import {checkAuth} from "./store/reducers/userReducer";
+import {ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -30,7 +32,8 @@ store.dispatch(checkAuth())
 root.render(
   <React.StrictMode>
     <Provider store={store}>
+      <ToastContainer limit={1} />
       <App/>
     </Provider>
-  </React.StrictMode>,
+  </React.StrictMode>
 );

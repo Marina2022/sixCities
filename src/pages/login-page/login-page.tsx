@@ -23,8 +23,7 @@ function LoginPage(): JSX.Element {
   }
 
 
-  return (
-    <div className="page__login-container container">
+  return   <div className="page__login-container container">
       <section className="login">
         <h1 className="login__title">Sign in</h1>
         <form className="login__form form" action="#" method="post" onSubmit={onFormSubmit}>
@@ -51,7 +50,7 @@ function LoginPage(): JSX.Element {
       </section>
     </div>
 
-  )
+
 }
 
 export default LoginPage

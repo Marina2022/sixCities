@@ -29,5 +29,4 @@ const Review = ({comment}: ReviewProps): JSX.Element => {
   )
 }
 
-
 export default Review
